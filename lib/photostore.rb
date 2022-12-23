@@ -212,7 +212,7 @@ class PhotoStore
     @photos_by_hash ||= {}
     @photos_by_filename ||= {}
     if File.readable?(@filename) && !@rescan
-      @photos_by_hash = JSON.parse(File.read(CACHE_FILE))
+      @photos_by_hash = JSON.parse(File.read(@filename))
       @photos_by_hash.each do |hash, info|
         info["files"].each do |file|
           @photos_by_filename[file] = info
