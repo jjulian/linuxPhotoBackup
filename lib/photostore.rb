@@ -219,26 +219,24 @@ class PhotoStore
     end
   end
 
-  # Loads the exif date data from a file
+  # Returns the date data from a file
   #
   # @param filename [String] The filename to load the exif data from
   #
-  # @return [String] The date from the exif metadata
+  # @return [String] The date from the exif metadata or the file last modified date
   def loadExif(filename)
     begin
       exif = EXIFR::JPEG.new(filename)
-    rescue
-      return nil
+      # grab the date in order of preference
+      date = exif.date_time_original || exif.date_time || exif.date_time_digitized
+    rescue => e
+      # cannot read exif data
     end
-
-    # All 3 dates might exist, grab them in order of preference
-    date = exif.date_time_original
-    if date.nil?
-      date = exif.date_time
-    elsif date.nil?
-      date = exif.date_time_digitized
+    if date
+      date.to_s
+    else
+      # fallback to the file's mtime - the time it was last modified
+      File::Stat.new(filename).mtime.to_s
     end
-
-    date.to_s
   end
 end
