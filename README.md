@@ -12,10 +12,6 @@ It can then build a hardlink directory structure to centralize these disparate d
 
 ## Usage
 
-`bundle exec ruby backupPhotos.rb -h`
-
-## Example use case
-
 Suppose I have three directories of photos:
 1. /home/user1/Pictures/
 2. /home/share/Pictures/
@@ -23,5 +19,5 @@ Suppose I have three directories of photos:
 
 These directories may or may not have the exact same photos. Create a directory structure with a set of hard links based on the EXIF dates:
 ```
-bundle exec ruby backupPhotos.rb -d /home/user1/Pictures/ -d /home/share/Pictures/ -d /home/user3/Photos\ Library.photoslibrary/originals -b /home/share/bydate
+bundle exec ruby backupPhotos.rb -d /home/user1/Pictures/ -d /home/share/Pictures/ -d /home/user3/Photos\ Library.photoslibrary/originals -o /home/share/bydate
 ```
